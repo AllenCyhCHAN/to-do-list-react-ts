@@ -22,11 +22,23 @@ const SingleTodo: React.FC<Props> = ({todo, todos, setTodos} : Props ) => {
 
 
   const handleDone = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      )
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
     );
+  
+    // Find the newly marked todo item
+    const newlyMarkedTodo = updatedTodos.find((todo) => todo.id === id);
+  
+    // Only proceed if the newly marked todo item is found
+    if (newlyMarkedTodo) {
+      // Remove the newly marked todo item from the array
+      const filteredTodos = updatedTodos.filter((todo) => todo.id !== id);
+  
+      // Add the newly marked todo item to the end of the array
+      const reorderedTodos = [...filteredTodos, newlyMarkedTodo];
+  
+      setTodos(reorderedTodos);
+    }
   };
 
   const handleDelete = (id: number) => {

@@ -1,16 +1,22 @@
-import React, {useRef} from 'react';
+import React, {useRef, useContext} from 'react';
 import './style.css';
+import { TodoContext, useTodoContext } from '../ToDosContext';
 
 
 interface Props {
-  todo: string;
-  setTodo: React.Dispatch<React.SetStateAction<string>>;
   handleAdd: (e: React.FormEvent) => void;
 }
 
-const InputField = ({ todo, setTodo, handleAdd }: Props) => {
+const InputField = ({ handleAdd }: Props) => {
   
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const todoProps = useTodoContext();
+
+  const todo = todoProps?.todo;
+
+  const setTodo = todoProps?.setTodo;
+
 
   return (
     <form

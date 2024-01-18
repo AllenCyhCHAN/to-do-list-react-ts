@@ -4,6 +4,7 @@ import InputField from './components/InputField'
 import { useState } from 'react'
 import { Todo } from './model'
 import TodoList from './components/TodoList'
+import { TodoContext } from './ToDosContext'
 
 
 const App: React.FC = () => {
@@ -21,9 +22,11 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
+      <TodoContext.Provider value={{todos: todos, setTodos: setTodos, todo: todo, setTodo: setTodo}}>
       <span className="heading">Another To Do App</span>
-      <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd} />
-      <TodoList todos={todos} setTodos={setTodos}  />
+      <InputField handleAdd={handleAdd} />
+      <TodoList />
+      </TodoContext.Provider>
     </div>
     
   )
